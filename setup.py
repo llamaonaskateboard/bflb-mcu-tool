@@ -25,6 +25,7 @@ and making it more easy for users who are accustomed to using command line opera
 ### files for download:
 
 * --firmware：mandatory, select the firmware binary file which your sdk build out
+* --firmware-group1: optional, select the firmware binary file for group1
 * --dts：optional,select the device tree file you used
 * --addr：address to program, default is 0x2000
 * --erase：erase the whole flash
@@ -55,7 +56,7 @@ entry_points = {'console_scripts': ['bflb-mcu-tool = bflb_mcu_tool.__main__:run_
 
 setup(
     name="bflb-mcu-tool",
-    version="1.8.1",
+    version="1.8.1-1",
     author="bouffalolab",
     author_email="jxtan@bouffalolab.com",
     description="Bouffalolab Mcu Tool",

@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: bflb-mcu-tool
-Version: 1.8.1
+Version: 1.8.1-1
 Summary: Bouffalolab Mcu Tool
 Home-page: https://pypi.org/project/bflb-mcu-tool/
 Author: bouffalolab
@@ -29,6 +29,7 @@ Description:
         ### files for download:
         
         * --firmware：mandatory, select the firmware binary file which your sdk build out
+        * --firmware-group1: optional, select the firmware binary file for group1
         * --dts：optional,select the device tree file you used
         * --addr：address to program, default is 0x2000
         * --erase：erase the whole flash

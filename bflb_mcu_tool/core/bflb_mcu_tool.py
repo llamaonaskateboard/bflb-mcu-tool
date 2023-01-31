@@ -2356,6 +2356,11 @@ def get_value(args):
         bflb_utils.printf("firmware is not existed")
         sys.exit(1)
 
+    if args.firmware_group1:
+        firmware_group1 = args.firmware_group1.replace('~', expanduser("~"))
+    else:
+        firmware_group1 = None
+
     if args.dts:
         dts = args.dts.replace('~', expanduser("~"))
         if not os.path.exists(dts):
@@ -2531,9 +2536,12 @@ def get_value(args):
         config["public_key_cfg-group1"] = ''
         config["private_key_cfg-group1"] = ''
         config["img1_group"] = "group0"
-        config["img2_group"] = "unused"
+        if args.firmware_group1:
+            config["img2_group"] = "group1"
+        else:
+            config["img2_group"] = "unused"
         config["img3_group"] = "unused"
-        config["img2_file"] = ""
+        config["img2_file"] = firmware_group1
         config["img2_addr"] = ""
         config["img3_file"] = ""
         config["img3_addr"] = ""
@@ -2541,10 +2549,16 @@ def get_value(args):
         if args.addr:
             if args.addr == "0x2000" or args.addr == "2000":
                 config["img1_addr"] = "0x58000000"
+                if args.firmware_group1:
+                    config["img2_addr"] = "0x58000000"
             else:
                 config["img1_addr"] = "0x" + args.addr.replace("0x", "")
+                if args.firmware_group1:
+                    config["img2_addr"] = "0x" + args.addr.replace("0x", "")
         else:
             config["img1_addr"] = "0x58000000"
+            if args.firmware_group1:
+                config["img2_addr"] = "0x58000000"
     else:
         bflb_utils.printf("Chip type is not correct")
         sys.exit(1)
@@ -2587,6 +2601,10 @@ def run(argv):
                         dest="firmware",
                         default=firmware_default,
                         help="image to write")
+    parser.add_argument("--firmware-group1",
+                        dest="firmware_group1",
+                        default="",
+                        help="image to write to group1")
     parser.add_argument("--addr", dest="addr", default="0x2000", help="address to write")
     parser.add_argument("--dts", dest="dts", help="device tree")
     parser.add_argument("--build", dest="build", action="store_true", help="build image")
@@ -2611,6 +2629,7 @@ def run(argv):
         bflb_utils.printf("Serial port is not found")
     bflb_utils.printf("Baudrate is " + str(args.baudrate))
     bflb_utils.printf("Firmware is " + str(args.firmware))
+    bflb_utils.printf("Firmware group1 is " + str(args.firmware_group1))
     bflb_utils.printf("Device Tree is " + str(args.dts))
     bflb_utils.printf("==================================================")
     config = get_value(args)

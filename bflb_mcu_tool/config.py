@@ -6,7 +6,7 @@ import sys
 try:
     from version import *
 except ImportError:
-    version = "1.8.1"
+    version = "1.8.1-1"
 
 chip_name = "tg7100c"
 obj_cklink = None
