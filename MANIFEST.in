@@ -1,0 +1,12 @@
+
+include LICENSE
+include MANIFEST.in
+include README
+include .gitignore
+
+recursive-include bflb_mcu_tool/chips *
+recursive-include bflb_mcu_tool/utils *
+recursive-include bflb_mcu_tool/img *
+
+
+
